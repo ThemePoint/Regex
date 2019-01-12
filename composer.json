@@ -1,5 +1,5 @@
 {
-  "name": "ShopbaseDE/PHPRegex",
+  "name": "shopbase/regex",
   "type": "library",
   "description": "...",
   "keywords": ["pattern","matching","php","regex"],
