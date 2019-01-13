@@ -53,7 +53,7 @@ $result = \Shopbase\Regex\Regex::match('/(foo)(bar)(baz)/', 'foobarbaz')->getMat
 
 // you can do the same group function with string values. It will work equal as the 'group' function
 $result = \Shopbase\Regex\Regex::match('/(foo)(bar)(baz)/', 'foobarbaz')->getMatches()->namedGroup('group');
-$result = \Shopbase\Regex\Regex::match('/(foo)(bar)(baz)/', 'foobarbaz')->getMatches()->namedGroup('group, ['subgroup', 'subgroup']);
+$result = \Shopbase\Regex\Regex::match('/(foo)(bar)(baz)/', 'foobarbaz')->getMatches()->namedGroup('group', ['subgroup', 'subgroup']);
 
 // to get multiple groups you can use the 'groups' function. Here it is possible to include the subgroups of every item, too. 
 $result = \Shopbase\Regex\Regex::match('/(foo)(bar)(baz)/', 'foobarbaz')->getMatches()->groups(0, 1, 2);
