@@ -31,15 +31,19 @@ class Process extends Functions
      * @param string $subject
      * @param string $replacement
      * @param int $limit
+     * @param array $flags
+     * @param int $offset
      * @return Result
      */
-    public function process(string $type, string $pattern, string $subject, string $replacement = '', int $limit = 0) : Result
+    public function process(string $type, string $pattern, string $subject, string $replacement = '', int $limit = 0, array $flags = array(), int $offset = 0) : Result
     {
         $this->type = $type;
         $this->pattern = $pattern;
         $this->subject = $subject;
         $this->replacement = $replacement;
         $this->limit = $limit;
+        $this->flags = $flags;
+        $this->offset = $offset;
 
         $this->$type();
 
@@ -52,13 +56,15 @@ class Process extends Functions
      * @param string $type
      * @param string $pattern
      * @param array $subject
+     * @param array $flags
      * @return Result
      */
-    public function grepProcess(string $type, string $pattern, array $subject) : Result
+    public function grepProcess(string $type, string $pattern, array $subject, array $flags = array()) : Result
     {
         $this->type = $type;
         $this->pattern = $pattern;
         $this->subject = $subject;
+        $this->flags = $flags;
 
         $this->$type();
 
@@ -72,14 +78,16 @@ class Process extends Functions
      * @param array $pattern
      * @param array $subject
      * @param array $replacement
+     * @param int $limit
      * @return Result
      */
-    public function filterProcess(string $type, array $pattern, array $subject, array $replacement) : Result
+    public function filterProcess(string $type, array $pattern, array $subject, array $replacement, int $limit = -1) : Result
     {
         $this->type = $type;
         $this->pattern = $pattern;
         $this->subject = $subject;
         $this->replacement = $replacement;
+        $this->limit = $limit;
 
         $this->$type();
 

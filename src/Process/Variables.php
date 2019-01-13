@@ -61,4 +61,18 @@ class Variables
      * @var int
      */
     protected $count;
+
+    /**
+     * Contains the flags
+     *
+     * @var array
+     */
+    protected $flags;
+
+    /**
+     * Contains the offset
+     *
+     * @var int
+     */
+    protected $offset;
 }

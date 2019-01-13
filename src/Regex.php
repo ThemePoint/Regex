@@ -21,11 +21,13 @@ class Regex
      *
      * @param string $pattern
      * @param string $subject
+     * @param array $flags
+     * @param int $offset
      * @return Result
      */
-    public static function match(string $pattern, string $subject) : Result
+    public static function match(string $pattern, string $subject, array $flags = array(), int $offset = 0) : Result
     {
-        return (new Process())->process(Process::$TYPE_MATCH, $pattern, $subject);
+        return (new Process())->process(Process::$TYPE_MATCH, $pattern, $subject, '', 0, $flags, $offset);
     }
 
     /**
@@ -33,11 +35,13 @@ class Regex
      *
      * @param string $pattern
      * @param string $subject
+     * @param array $flags
+     * @param int $offset
      * @return Result
      */
-    public static function matchAll(string $pattern, string $subject) : Result
+    public static function matchAll(string $pattern, string $subject, array $flags = array(), int $offset = 0) : Result
     {
-        return (new Process())->process(Process::$TYPE_MATCH_ALL, $pattern, $subject);
+        return (new Process())->process(Process::$TYPE_MATCH_ALL, $pattern, $subject, '', 0, $flags, $offset);
     }
 
     /**
@@ -60,11 +64,12 @@ class Regex
      * @param string $pattern
      * @param string $subject
      * @param int $limit
+     * @param array $flags
      * @return Result
      */
-    public static function split(string $pattern, string $subject, int $limit = 0) : Result
+    public static function split(string $pattern, string $subject, int $limit = 0, array $flags = array()) : Result
     {
-        return (new Process())->process(Process::$TYPE_SPLIT, $pattern, $subject, '', $limit);
+        return (new Process())->process(Process::$TYPE_SPLIT, $pattern, $subject, '', $limit, $flags);
     }
 
     /**
@@ -72,11 +77,12 @@ class Regex
      *
      * @param string $pattern
      * @param array $subject
+     * @param array $flags
      * @return Result
      */
-    public static function grep(string $pattern, array $subject) : Result
+    public static function grep(string $pattern, array $subject, array $flags = array()) : Result
     {
-        return (new Process())->grepProcess(Process::$TYPE_GREP, $pattern, $subject);
+        return (new Process())->grepProcess(Process::$TYPE_GREP, $pattern, $subject, $flags);
     }
 
     /**
@@ -85,11 +91,12 @@ class Regex
      * @param array $pattern
      * @param array $subject
      * @param array $replacement
+     * @param int $limit
      * @return Result
      */
-    public static function filter(array $pattern, array $subject, array $replacement) : Result
+    public static function filter(array $pattern, array $subject, array $replacement, int $limit = -1) : Result
     {
-        return (new Process())->filterProcess(Process::$TYPE_FILTER, $pattern, $subject, $replacement);
+        return (new Process())->filterProcess(Process::$TYPE_FILTER, $pattern, $subject, $replacement, $limit);
     }
 
     /**
@@ -98,8 +105,21 @@ class Regex
      * @param string $expression
      * @return string
      */
-    public static function validateExpression(string $expression)
+    public static function validateExpression(string $expression) : string
     {
         return preg_quote($expression);
+    }
+
+    /**
+     * Validate a expression
+     *
+     * Same as validateExpression function
+     *
+     * @param string $expression
+     * @return string
+     */
+    public static function quote(string $expression) : string
+    {
+        return self::validateExpression($expression);
     }
 }

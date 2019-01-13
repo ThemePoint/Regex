@@ -30,6 +30,13 @@ class Result
     protected $hasMatches;
 
     /**
+     * Contains the count
+     *
+     * @var int
+     */
+    protected $count;
+
+    /**
      * Set matches
      *
      * @param \Shopbase\Regex\Result\Matches $matches
@@ -46,7 +53,7 @@ class Result
      *
      * @return \Shopbase\Regex\Result\Matches
      */
-    public function getMatches()
+    public function getMatches() : Matches
     {
         return $this->matches;
     }
@@ -68,8 +75,30 @@ class Result
      *
      * @return bool
      */
-    public function getHasMatches()
+    public function getHasMatches() : bool
     {
         return $this->hasMatches;
+    }
+
+    /**
+     * Set the count
+     *
+     * @param int $count
+     * @return Result
+     */
+    public function setCount(int $count) : Result
+    {
+        $this->count = $count;
+        return $this;
+    }
+
+    /**
+     * Get the count
+     *
+     * @return int
+     */
+    public function getCount() : int
+    {
+        return $this->count;
     }
 }

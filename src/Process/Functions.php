@@ -26,7 +26,7 @@ class Functions extends Variables
         $result = null;
 
         try {
-            $result = preg_match($this->pattern, $this->subject, $matches);
+            $result = preg_match($this->pattern, $this->subject, $matches, array_reduce($this->flags, function($a, $b) { return $a | $b; }), $this->offset);
         } catch (\Exception $exception) {
             echo "PHP Regex failed. Reason: " . $exception->getMessage();
         }
@@ -47,7 +47,7 @@ class Functions extends Variables
         $result = null;
 
         try {
-            $result = preg_match_all($this->pattern, $this->subject, $matches);
+            $result = preg_match_all($this->pattern, $this->subject, $matches, array_reduce($this->flags, function($a, $b) { return $a | $b; }), $this->offset);
         } catch (\Exception $exception) {
             echo "PHP Regex failed. Reason: " . $exception->getMessage();
         }
@@ -77,7 +77,7 @@ class Functions extends Variables
      */
     protected function grep()
     {
-        $result = preg_grep($this->pattern, $this->subject);
+        $result = preg_grep($this->pattern, $this->subject, array_reduce($this->flags, function($a, $b) { return $a | $b; }));
 
         $this->matches = $result;
     }
@@ -87,9 +87,12 @@ class Functions extends Variables
      */
     protected function filter()
     {
-        $result = preg_filter($this->pattern, $this->replacement, $this->subject);
+        $count = 0;
+
+        $result = preg_filter($this->pattern, $this->replacement, $this->subject, $this->limit, $count);
 
         $this->matches = $result;
+        $this->count = $count;
     }
 
     /**
@@ -97,7 +100,7 @@ class Functions extends Variables
      */
     protected function split()
     {
-        $result = preg_split($this->pattern, $this->subject, $this->limit);
+        $result = preg_split($this->pattern, $this->subject, $this->limit, array_reduce($this->flags, function($a, $b) { return $a | $b; }));
 
         $this->matches = $result;
     }
@@ -115,6 +118,8 @@ class Functions extends Variables
             $this->matches = array($this->matches);
         }
 
-        return (new Result())->setHasMatches($hasMatches)->setMatches(Matches::createInstance($this->matches));
+        $count = $this->count ? $this->count : count($this->matches);
+
+        return (new Result())->setHasMatches($hasMatches)->setMatches(Matches::createInstance($this->matches))->setCount($count);
     }
 }
