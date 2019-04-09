@@ -90,3 +90,5 @@ The package contains a object which includes some predefined patterns
 ```php
 \Shopbase\Regex\RegexPattern::getHtmlSearchExpression('div');
 ```
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WPDZYBK6E4ZAG&source=url)
