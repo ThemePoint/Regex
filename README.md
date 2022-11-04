@@ -1,3 +1,5 @@
+## ! Package is not maintained anymore. Please use [`flexic/regex`](https://github.com/flexicsystems/regex) in future.
+
 # Regex
 This is a package which allows PHP Regex usage without much setup. You can use the static functions as like as the default preg_* functions and they will give you a match object with a lot of functions to evaluate the matches.
 
